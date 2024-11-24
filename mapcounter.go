@@ -88,7 +88,7 @@ func (ll *LogLog[T]) GetCount() uint64 {
 	for i := 0; i < m; i++ {
 		sum += ll.buckets[i]
 	}
-	var am float64 = float64(sum) / float64(m)
+	var avg float64 = float64(sum) / float64(m)
 
-	return uint64(math.Round(ll.a_m * float64(m) * math.Pow(2, am)))
+	return uint64(math.Round(ll.a_m * float64(m) * math.Pow(2, avg)))
 }
