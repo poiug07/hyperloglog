@@ -2,15 +2,22 @@ package main
 
 import (
 	"fmt"
-	"hash/maphash"
+
+	"github.com/spaolacci/murmur3"
 )
 
 type HashInt int
 
-var seed maphash.Seed = maphash.MakeSeed()
+// var seed maphash.Seed = maphash.MakeSeed()
+//
+// func (val HashInt) Hash() uint {
+// 	return uint(maphash.Bytes(seed, []byte(fmt.Sprintf("%d", val))))
+// }
 
 func (val HashInt) Hash() uint {
-	return uint(maphash.Bytes(seed, []byte(fmt.Sprintf("%d", val))))
+	hasher := murmur3.New64()
+	hasher.Write([]byte(fmt.Sprintf("%d", val)))
+	return uint(hasher.Sum64())
 }
 
 func main() {
